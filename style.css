@@ -1,0 +1,103 @@
+body {
+    background-color: #05171E;
+    color: white;
+}
+
+.header,
+.footer {
+    background-color: #082029;
+    color: white;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.footer {
+    height: 50px;
+    justify-content: center;
+    position: sticky;
+    bottom: 0px;
+}
+
+.header.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.pokedex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.pokemon {
+    margin: 10px;
+    padding: 10px;
+    background-color: #082029;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 180px;
+    text-align: center;
+    transition: transform 0.2s;
+    color: white;
+}
+
+.pokemon:hover {
+    transform: scale(1.05);
+    border-color: #007bff;
+}
+
+.pokemon img {
+    width: 100px;
+    height: 100px;
+}
+
+.pokemon .name {
+    background-color: #082029;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.pokemon .number {
+    font-size: 24px;
+    color: #FFF;
+    background-color: #082029;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.modal-content {
+    background-color: #082029;
+    color: white;
+}
+
+.show-more {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.background-red {
+    background-color: red;
+}
+
+.background-water {
+    background-color: #007bff;
+}
+
+.background-poison {
+  background-color: brown;
+}
+
+.background-brown {
+    background-color: burlywood;
+}
+
+.background-green {
+    background-color: greenyellow;
+}
