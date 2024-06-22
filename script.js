@@ -4,9 +4,18 @@ const offset = 0;
 
 async function onloadFunc() {
     console.log("Page loaded");
-    let data = await loadData(); 
-    console.log("Initial data:", data);
-    displayPokemonList(data.results);
+    showLoadingScreen();
+    try {
+        let data = await loadData();
+        console.log("Initial data:", data);
+        await displayPokemonList(data.results);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        hideLoadingScreen();
+        scrollToBottom()
+    }
+     
 }
 
 async function loadData(limit = LIMIT, offset = 0) {
@@ -21,12 +30,20 @@ async function loadData(limit = LIMIT, offset = 0) {
 }
 
 async function showMore() {
-    LIMIT = LIMIT + 30;
-    let url = `${BASE_URL}?limit=${LIMIT}&offset=${offset}`;
-    console.log(url);
-    let data = await loadData(LIMIT, offset);
-    console.log("More data:", data);
-    displayPokemonList(data.results);
+    showLoadingScreen();
+    LIMIT += 30;
+    try {
+        let url = `${BASE_URL}?limit=${LIMIT}&offset=${offset}`;
+        console.log(url);
+        let data = await loadData(LIMIT, offset);
+        console.log("More data:", data);
+        await displayPokemonList(data.results);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        hideLoadingScreen();
+        scrollToBottom()
+    }
 }
 
 async function displayPokemonList(pokemonList) {
@@ -35,17 +52,20 @@ async function displayPokemonList(pokemonList) {
     for (let i = 0; i < pokemonList.length; i++) {
         let pokemon = pokemonList[i];
         let pokemonDetails = await loadPokemonDetails(pokemon.url);
+        let pokemoonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) 
+        let type = pokemonDetails.types.map(typeInfo => typeInfo.type.name).join(', ')
+        let typeBackground = pokemonDetails.types[0].type.name;
         const pokemonElement = document.createElement('div');
         pokemonElement.className = 'pokemon';
         pokemonElement.innerHTML = `
             <div class="number">#${i + 1}</div>
-            <div class="elementPokemon">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png" alt="${pokemon.name}">
+            <div class="elementPokemon bg_${typeBackground}">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png" alt="${pokemoonName}">
             </div>
-            <div class="name">${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</div>
-            <div class="type">${pokemonDetails.types.map(typeInfo => typeInfo.type.name).join(', ')}</div>
+            <div class="name">${pokemoonName}</div>
+            <div class="type">${type}</div>
         `;
-        elementType(pokemonDetails, pokemonElement);
+        
         pokemonElement.onclick = () => displayPokemonDetails(pokemonDetails);
         pokedex.appendChild(pokemonElement);
     }
@@ -98,24 +118,20 @@ function detailsInHtml(details, pokemon) {
     `;
 }
 
-function elementType(pokemon, pokemonElement) {
-    const types = pokemon.types.map(typeInfo => typeInfo.type.name);
-    if (types.includes("fire")) {
-        pokemonElement.querySelector('.elementPokemon').classList.add('background-red');
-    }
-    if (types.includes("water")) {
-        pokemonElement.querySelector('.elementPokemon').classList.add('background-water');
-    }
-    if (types.includes("poison")) {
-        pokemonElement.querySelector('.elementPokemon').classList.add('background-pison');
-    }
-    if (types.includes("ground")) {
-        pokemonElement.querySelector('.elementPokemon').classList.add('background-brown');
-    }
-    if (types.includes("grass")) {
-        pokemonElement.querySelector('.elementPokemon').classList.add('background-green');
-    }
+function showLoadingScreen() {
+    document.getElementById('loadingScreen').classList.remove('d-none');
+    document.getElementById('pokedex').classList.add('d-none');
 }
 
+function hideLoadingScreen() {
+    document.getElementById('loadingScreen').classList.add('d-none');
+    document.getElementById('pokedex').classList.remove('d-none');
+}
 
-
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+    }
+    

@@ -82,22 +82,126 @@ body {
     padding: 10px;
 }
 
-.background-red {
-    background-color: red;
+.bg_grass {
+ background-color: green;
 }
 
-.background-water {
-    background-color: #007bff;
+.bg_water {
+  background-color: blue;
 }
 
-.background-poison {
-  background-color: brown;
+.bg_fire {
+  background-color: red;
 }
 
-.background-brown {
-    background-color: burlywood;
+.bg_bug {
+  background-color: #003d0a;
 }
 
-.background-green {
-    background-color: greenyellow;
+.bg_normal {
+  background-color: #474747;
 }
+
+.bg_poison {
+  background-color: #c772ff;
+}
+
+.bg_electric {
+  background-color: #fff672;
+}
+
+.bg_ground {
+  background-color: #201818;
+}
+
+.bg_fighting {
+  background-color: #6affeb;
+}
+
+.bg_rock {
+  background-color: #201818;
+}
+
+.bg_ghost {
+  background-color: antiquewhite;
+}
+
+.bg_psychic {
+  background-color: #ff00b3;
+}
+
+.bg_dragon {
+  background-color: #fa3e3e;
+}
+
+.bg_ice {
+  background-color: #007bff;
+}
+
+.bg_fairy {
+  background-color: #8000ff;
+}
+
+.bg_steel{
+  background-color: #5f7992;
+}
+
+.bg_dark {
+  background-color: #474747;
+}
+
+.pokemon-load {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    background: linear-gradient(to bottom, rgb(254, 0, 1) 50%, white 50% );
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  .pokemon-load::before {
+    content: '';
+    position: absolute;
+    height: 8px;
+    width: 100px;
+    background: black;
+    top: 50px;
+    transform: translatey(-50%);
+  }
+  
+  .pokemon-load::after {
+    content: '';
+    position: absolute;
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    background: white;
+    top: 50px;
+    left: 50px;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 0 0 0 8px black, inset 0 0 0 10px white, inset 0 0 0 12px black;
+  
+  }
+  
+ 
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .d-none {
+    display: none !important;
+  }
+
+  .load-posiotion {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  
